@@ -1,33 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Produit from "../Produit/Produit";
 import "./Liste.css";
 export default function Liste(props){
-    
+    let [miseAJour, setMiseAJour] = useState(false);
     console.log("liste")
     //prop.titre = "test";
     let aProduits=[];
     for(let i = 0; i< 15; i++){
         aProduits.push({
+            id : (i+1),
             nom : " Item " + i,
-            fabricant : "Fab " +i,
-            prix : Math.floor(Math.random()*50)
+            brasserie : "Fab " +i,
         });
     }
     let [produits, setProduits] = useState(aProduits);
-    
+    useEffect(()=>{
+        getBieres();
+    }, [miseAJour]);
 
+    
     const htmlProduit = produits.map((unProduit, index)=>{
-        let prix = <p>Prix : Non disponible</p>;
-        if(props.connecter){
-            prix = <p>Prix : {unProduit.prix}</p>
-        }
         return (
-                <article key={index}>
-                    <p>Nom : {unProduit.nom}</p>
-                    <p>Fabricant : {unProduit.fabricant}</p>
-                    {prix}
-                </article>
+                <Produit key={index} connecter={props.connecter} unProduit={unProduit} {...unProduit}/>
             );
     })
+
+    function getBieres()
+    {
+        fetch("//127.0.0.1:8000/webservice/php/biere")
+            .then(data=>data.json())
+            .then(data=>{
+                setProduits(data.data);
+                setMiseAJour(false);
+            })
+    }
 
     function ajouterProduit(){
 
