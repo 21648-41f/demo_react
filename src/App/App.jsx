@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 function App() {
   let [sTitre, setTitre] = useState("Le titre de la page");
+  let [courriel, setCourriel] = useState("");
+  let [connecter, setConnecter] = useState(false);
 
   //let sTitre = "Le titre de la page";
   const uneProp = {
@@ -22,10 +24,10 @@ function App() {
 
   return (
       <Router>
-        <Entete />
+        <Entete setConnecter={setConnecter} connecter={connecter} setCourriel={setCourriel} courriel={courriel} />
         <Routes>
           <Route path="/" element={<h1>Accueil</h1>} />
-          <Route path="/liste" element={<Liste {...uneProp} titre={sTitre} nbMax="5" tri="nom" ordre="ASC" test={uneProp} />} />
+          <Route path="/liste" element={<Liste connecter={connecter} {...uneProp} titre={sTitre} nbMax="5" tri="nom" ordre="ASC" test={uneProp} />} />
           <Route path='*' element={<h1>Non trouvé - 404</h1>} />
         </Routes>
         

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Liste.css";
-export default function Liste(prop){
+export default function Liste(props){
     
     console.log("liste")
     //prop.titre = "test";
@@ -16,11 +16,15 @@ export default function Liste(prop){
     
 
     const htmlProduit = produits.map((unProduit, index)=>{
+        let prix = <p>Prix : Non disponible</p>;
+        if(props.connecter){
+            prix = <p>Prix : {unProduit.prix}</p>
+        }
         return (
                 <article key={index}>
                     <p>Nom : {unProduit.nom}</p>
                     <p>Fabricant : {unProduit.fabricant}</p>
-                    <p>Prix : {unProduit.prix}</p>
+                    {prix}
                 </article>
             );
     })
@@ -38,7 +42,7 @@ export default function Liste(prop){
 
     return (
         <>
-            <h1 className="">{prop.titre}</h1>
+            <h1 className="">{props.titre}</h1>
             <button onClick={()=>{ ajouterProduit()}}>AjouterProduit</button>
             <section className="catalogue">
             {htmlProduit}
