@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Liste.css";
 export default function Liste(prop){
-    console.log(prop)
+    
+    console.log("liste")
     //prop.titre = "test";
     let aProduits=[];
     for(let i = 0; i< 15; i++){
@@ -11,9 +12,10 @@ export default function Liste(prop){
             prix : Math.floor(Math.random()*50)
         });
     }
-    //let [produits, setProduits] = useState(aProduits);
+    let [produits, setProduits] = useState(aProduits);
     
-    const htmlProduit = aProduits.map((unProduit, index)=>{
+
+    const htmlProduit = produits.map((unProduit, index)=>{
         return (
                 <article key={index}>
                     <p>Nom : {unProduit.nom}</p>
@@ -22,9 +24,22 @@ export default function Liste(prop){
                 </article>
             );
     })
+
+    function ajouterProduit(){
+
+        let item = {
+            nom : " Item 100",
+            fabricant : "Fab 100",
+            prix : Math.floor(Math.random()*50)
+        };
+        setProduits(produits.concat(item));
+        //console.log(aProduits);
+    }
+
     return (
         <>
             <h1 className="">{prop.titre}</h1>
+            <button onClick={()=>{ ajouterProduit()}}>AjouterProduit</button>
             <section className="catalogue">
             {htmlProduit}
             </section>

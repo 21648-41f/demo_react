@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import './Entete.css';
 
 export default function Entete(){
@@ -41,8 +42,10 @@ export default function Entete(){
                 Courriel<input disabled={connecter} value={courriel} onChange={(e)=>{setCourriel(e.target.value)}} type="text"></input>
                 <button onClick={(e)=>{ verifierCourriel()}}>{(!connecter ? "Se connecter" : "Se déconnecter" )}</button>
                 {etatConnection()}
-                <a href="">Accueil</a>
-                <a href="">Liste</a>
+                <Link to="/">Accueil</Link>
+                <NavLink to="/">Accueil</NavLink>
+                <Link to="/liste">Liste</Link>
+                <NavLink to="/liste">Liste</NavLink>
             </nav>
         </header>
     );

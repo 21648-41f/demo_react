@@ -2,6 +2,7 @@ import './App.css'
 import Entete from '../Entete/Entete';
 import Liste from '../Liste/Liste';
 import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 function App() {
   let [sTitre, setTitre] = useState("Le titre de la page");
@@ -13,21 +14,26 @@ function App() {
     prop3 : "monde"
   };
 
-  setTimeout(()=>{
+  /*setTimeout(()=>{
     console.log(sTitre);
     setTitre("Nouveau titre")
     console.log(sTitre);
-  } , 5000);
+  } , 5000);*/
 
   return (
-    <>
-      <Entete />
-      <Liste {...uneProp} titre={sTitre} nbMax="5" tri="nom" ordre="ASC" test={uneProp} />
-      <div className="App">
+      <Router>
+        <Entete />
+        <Routes>
+          <Route path="/" element={<h1>Accueil</h1>} />
+          <Route path="/liste" element={<Liste {...uneProp} titre={sTitre} nbMax="5" tri="nom" ordre="ASC" test={uneProp} />} />
+          <Route path='*' element={<h1>Non trouvé - 404</h1>} />
+        </Routes>
         
-        {sTitre}
-      </div>
-    </>
+        <div className="piedPage">
+
+          {sTitre}
+        </div>
+    </Router>
   )
 }
 

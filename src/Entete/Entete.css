@@ -12,6 +12,10 @@
     
 }
 
+.active {
+    font-weight: bold;
+}
+
 a{
     color: whitesmoke;
     margin-left: 16px;
